@@ -35,12 +35,22 @@ Success rates were analyzed across different launch sites, payload masses, and o
 
 ### 3. Interactive Visualizations
 * **Folium** was used to map launch site locations and proximity to coastlines/highways.
+> ![Folium Map 1](images/folium1.png)
+> ![Folium Map 2](images/folium2.png)
+
 * **Plotly Dash** was utilized to create an interactive dashboard for real-time success analysis.
+> ![Dash Interface 1](images/dash1.png)
 
 ### 4. Machine Learning (ML)
 Features were standardized using `StandardScaler`, and `GridSearchCV` was employed to optimize model hyperparameters.
+
+* **Model Comparison:** Various algorithms were evaluated to find the best fit.
+> ![Model Comparison](images/model_comparison.png)
+
 * **Best Model:** Decision Tree
 * **Test Set Accuracy:** 83.3%
+
+> ![Confusion Matrix](images/confusion_matrix.png)
 
 ---
 
