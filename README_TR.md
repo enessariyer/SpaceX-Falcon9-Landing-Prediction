@@ -1,15 +1,15 @@
-# SpaceX Falcon 9 Landing Prediction Project 🚀
+# SpaceX Falcon 9 İniş Tahmini Projesi 🚀
 
-Bu proje, SpaceX'in Falcon 9 fırlatmalarındaki ilk aşama iniş başarısını tahmin etmek amacıyla uçtan uca bir veri bilimi iş akışını kapsamaktadır. Fiyat farklarını ve başarı oranlarını analiz ederek, bir fırlatmanın maliyetini ve riskini öngörmeyi hedefler.
+Bu proje, SpaceX'in Falcon 9 fırlatmalarındaki ilk aşama iniş başarısını tahmin etmek amacıyla uçtan uca bir veri bilimi iş akışını kapsamaktadır. Fırlatma sahaları ve yük ağırlığı gibi faktörleri analiz ederek, fırlatma maliyetlerini ve risklerini doğrudan etkileyen iniş başarısını öngörmeyi hedefler.
 
 ## 📁 Proje Yapısı
 
 | Dosya / Klasör | Açıklama |
 | :--- | :--- |
-| `notebooks/` | Veri toplama, görselleştirme ve makine öğrenmesi süreçlerini içeren Jupyter Notebooklar. |
-| `images/` | Sunum ve README için kullanılan analiz grafiklerinin çıktıları. |
-| `scripts/` | Dash interaktif web uygulaması kodu. |
-| `requirements.txt` | Projenin çalışması için gerekli kütüphane listesi. |
+| `notebooks/` | Veri toplama, EDA (Keşifçi Veri Analizi) ve Makine Öğrenmesi süreçlerini içeren Jupyter Notebooklar. |
+| `images/` | Analizlerde ve README dosyasında kullanılan görsel çıktılar ve grafikler. |
+| `scripts/` | İnteraktif Plotly Dash web uygulaması için Python kodları. |
+| `requirements.txt` | Projeyi çalıştırmak için gerekli Python kütüphanelerinin listesi. |
 
 ---
 
@@ -19,38 +19,47 @@ Bu proje, SpaceX'in Falcon 9 fırlatmalarındaki ilk aşama iniş başarısını
 * **Veri Analizi:** Pandas, NumPy
 * **Görselleştirme:** Matplotlib, Seaborn, Folium, Plotly Dash
 * **Veritabanı:** SQL / PostgreSQL
-* **Makine Öğrenmesi:** Scikit-Learn (Logistic Regression, SVM, Decision Tree, KNN)
+* **Makine Öğrenmesi:** Scikit-Learn (Lojistik Regresyon, SVM, Karar Ağacı, KNN)
 
 ---
 
-## 🚀 Analiz Adımları
+## 🚀 Proje İş Akışı
 
 ### 1. Veri Toplama ve Hazırlama
-* SpaceX API'si ve web scraping yöntemleriyle fırlatma verileri toplandı.
-* Eksik veriler giderildi ve SQL sorguları ile temel analizler yapıldı.
+* Veriler, SpaceX API'si ve web kazıma (web scraping) teknikleri kullanılarak toplandı.
+* Veri temizleme işlemleri yapıldı ve SQL sorguları kullanılarak temel çıkarımlar elde edildi.
 
 ### 2. Keşifçi Veri Analizi (EDA)
-Fırlatma sahaları, yük miktarı (Payload Mass) ve yörünge (Orbit) tiplerine göre başarı oranları analiz edildi.
+Başarı oranları; farklı fırlatma sahaları, yük ağırlıkları ve yörünge türlerine göre analiz edildi.
 > ![Launch Site vs Payload](images/launchsite_vs_payload.png)
 
-### 3. İnteraktif Görselleştirme
-**Folium** kullanılarak fırlatma sahalarının harita üzerindeki konumları ve **Plotly Dash** ile interaktif başarı analiz paneli oluşturuldu.
+### 3. İnteraktif Görselleştirmeler
+* **Folium**, fırlatma sahası konumlarını ve kıyı şeritlerine/ana yollara olan yakınlıklarını haritalandırmak için kullanıldı.
+> ![Folium Map 1](images/folium1.png)
+> ![Folium Map 2](images/folium2.png)
+
+* **Plotly Dash**, gerçek zamanlı başarı analizi için interaktif bir panel oluşturmak amacıyla kullanıldı.
+> ![Dash Interface 1](images/dash1.png)
 
 ### 4. Makine Öğrenmesi (ML)
-Veriler standartlaştırıldı (StandardScaler) ve en iyi hiperparametreleri bulmak için `GridSearchCV` kullanıldı. 
-* **En İyi Model:** Decision Tree
-* **Doğruluk Oranı (Accuracy):** %83.3
+Özellikler `StandardScaler` kullanılarak standartlaştırıldı ve en iyi model hiperparametrelerini bulmak için `GridSearchCV` uygulandı.
+
+* **Model Karşılaştırması:** En iyi uyumu bulmak için çeşitli algoritmalar değerlendirildi.
+> ![Model Comparison](images/model_comparison.png)
+
+* **En İyi Model:** Karar Ağacı (Decision Tree)
+* **Test Seti Doğruluğu:** %83.3
+
+> ![Confusion Matrix](images/confusion_matrix.png)
 
 ---
 
-## 🏁 Sonuçlar ve Değerlendirme (Conclusion)
+## 🏁 Sonuçlar ve Çıkarımlar
 
-Bu proje sonucunda, SpaceX Falcon 9 iniş başarılarını etkileyen temel faktörler hakkında şu çıkarımlara ulaşıldı:
+Proje boyunca aşağıdaki temel bulgular tespit edilmiştir:
 
-* **Fırlatma Sahası Dinamikleri:** KSC LC-39A sahası, diğer sahalara kıyasla en yüksek başarı oranına sahiptir. VAFB SLC-4E ise kutupsal yörünge fırlatmalarında kritik bir rol oynamaktadır.
-* **Yük Ağırlığı Etkisi:** Analizler, 2000kg - 5000kg arası yük ağırlıklarının (Payload Mass) iniş başarısı için en "optimum" aralık olduğunu göstermektedir. 8000kg ve üzeri fırlatmalarda riskin arttığı gözlemlenmiştir.
-* **Yörünge Başarısı:** LEO (Alçak Dünya Yörüngesi) fırlatmaları, iniş başarısı açısından en yüksek yüzdeye sahipken, GTO fırlatmaları daha düşük bir başarı oranına sahiptir.
-* **Model Performansı:** Eğitilen makine öğrenmesi modelleri arasında **Decision Tree**, test setinde %83.3 doğruluk ile en istikrarlı sonucu vermiştir.
-* **Maliyet Analizi:** İniş başarısının önceden tahmin edilebilmesi, SpaceX'in roketleri yeniden kullanabilme (reusability) stratejisi için kritik olan fırlatma maliyetlerini yaklaşık %70 oranında azaltma potansiyelini doğrular niteliktedir.
-
----
+* **Fırlatma Sahası Dinamikleri:** KSC LC-39A sahası en yüksek başarı oranını göstermektedir. VAFB SLC-4E, kutupsal yörünge görevleri için kritik bir saha olmaya devam etmektedir.
+* **Yük Ağırlığı Korelasyonu:** Başarı, en istikrarlı şekilde 2000kg ile 5000kg yük aralığında görülmektedir. 8000kg üzerindeki daha ağır yüklerde iniş riskinin arttığı gözlemlenmiştir.
+* **Yörünge Başarısı:** Alçak Dünya Yörüngesi (LEO) görevleri en yüksek iniş başarısı oranına sahipken, GTO görevleri daha büyük bir zorluk teşkil etmektedir.
+* **Model Performansı:** Test edilen tüm algoritmalar arasında **Karar Ağacı (Decision Tree)** modeli, %83.3 test doğruluğu ile en kararlı performansı sağlamıştır.
+* **Maliyet Verimliliği:** İniş başarısının doğru tahmin edilmesi, SpaceX'in fırlatma maliyetlerini yaklaşık %70 oranında azaltabilecek roket yeniden kullanılabilirliği hedefini desteklemektedir.
