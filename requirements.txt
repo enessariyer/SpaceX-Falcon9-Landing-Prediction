@@ -1,0 +1,13 @@
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+requests
+wget
+plotly
+dash
+folium
+sqlalchemy
+psycopg2-binary
+python-dotenv
